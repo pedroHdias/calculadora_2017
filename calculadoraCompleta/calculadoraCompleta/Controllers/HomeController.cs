@@ -17,6 +17,9 @@ namespace calculadoraCompleta.Controllers
             return View();
         }
         // POST: Home
+        string op1, op2;
+        int resultado;
+        Boolean i;
         [HttpPost]
         public ActionResult Index(string bt, string visor, string aux, string oper)
         {
@@ -24,9 +27,6 @@ namespace calculadoraCompleta.Controllers
             switch (bt)
             {
                 case "0":
-                    
-                    break;
-
                 case "1":
                 case "2":
                 case "3":
@@ -36,7 +36,9 @@ namespace calculadoraCompleta.Controllers
                 case "7":
                 case "8":
                 case "9":
-                    visor = Convert.ToDouble(visor) * 10 + Convert.ToDouble(bt) + "";
+                    //determinar se no VISOR só existe um zero
+                    if (visor.Equals("0")) visor = bt;
+                    else visor += bt;
                     break;
 
                 case ".":
@@ -109,15 +111,12 @@ namespace calculadoraCompleta.Controllers
                         default:
                             break;
                     }
-                    break;
-
+                break;
                 default:
-                    break;
+                break;
             }
-
-            Session["visor"] = visor;
-
+            ViewBag.Visor = visor;
             return View();
         }
-        }
+    }
 }
